@@ -38,6 +38,40 @@
   color: var(--muted);
 }
 
+.field-name {
+  position: relative;
+}
+
+.name-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  margin-top: 2px;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.name-suggestions li {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.name-suggestions li:hover,
+.name-suggestions li.active {
+  background: var(--surface-hover);
+}
+
 .field-note {
   margin-bottom: 1.25rem;
 }

@@ -86,6 +86,7 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
         <LogForm
           activity={selectedActivity}
           onSubmit={onAddEntry}
+          existingNames={uniqueNames}
         />
       </section>
 
