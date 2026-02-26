@@ -1,0 +1,56 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summary-section {
+  margin-bottom: 0.25rem;
+}
+
+.log-section h2,
+.entries-section h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--text-strong);
+}
+
+.activity-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tab {
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab.satsang {
+  background: var(--accent-satsang-dim);
+  color: var(--accent-satsang);
+}
+
+.tab.satsang:hover,
+.tab.satsang.active {
+  background: var(--accent-satsang);
+  color: var(--on-accent);
+}
+
+.tab.sadhana {
+  background: var(--accent-sadhana-dim);
+  color: var(--accent-sadhana);
+}
+
+.tab.sadhana:hover,
+.tab.sadhana.active {
+  background: var(--accent-sadhana);
+  color: var(--on-accent);
+}
+
+.entries-section {
+  margin-top: 0.5rem;
+}

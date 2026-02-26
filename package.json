@@ -1,0 +1,22 @@
+{
+  "name": "sadhana-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && echo 'Build done. Push dist/ to gh-pages or use GitHub Actions.'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.3"
+  },
+  "homepage": "https://YOUR_USERNAME.github.io/SadhanaDashboard/"
+}

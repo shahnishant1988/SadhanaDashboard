@@ -1,0 +1,65 @@
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border-left: 4px solid;
+}
+
+.summary-card.satsang {
+  border-left-color: var(--accent-satsang);
+}
+
+.summary-card.sadhana {
+  border-left-color: var(--accent-sadhana);
+}
+
+.summary-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-total,
+.summary-week {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.summary-total .value,
+.summary-week .value {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.summary-card.satsang .value {
+  color: var(--accent-satsang);
+}
+
+.summary-card.sadhana .value {
+  color: var(--accent-sadhana);
+}
+
+.summary .unit {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}

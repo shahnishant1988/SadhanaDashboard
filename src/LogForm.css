@@ -1,0 +1,60 @@
+.log-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 120px;
+}
+
+.field span {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.field input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.field input::placeholder {
+  color: var(--muted);
+}
+
+.field-note {
+  margin-bottom: 1.25rem;
+}
+
+.submit-btn {
+  padding: 0.65rem 1.5rem;
+  background: var(--accent-satsang);
+  color: var(--on-accent);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: filter 0.2s;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
+}
+
+.submit-btn:active {
+  filter: brightness(0.95);
+}
