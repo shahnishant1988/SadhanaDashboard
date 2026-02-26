@@ -3,6 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS public.entries (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL DEFAULT '',
   activity TEXT NOT NULL CHECK (activity IN ('satsang', 'sadhana')),
   hours NUMERIC NOT NULL CHECK (hours >= 0 AND hours <= 24),
   date DATE NOT NULL,

@@ -6,6 +6,7 @@ function todayStr() {
 }
 
 function LogForm({ activity, onSubmit }) {
+  const [name, setName] = useState('')
   const [hours, setHours] = useState('')
   const [date, setDate] = useState(todayStr())
   const [note, setNote] = useState('')
@@ -14,7 +15,7 @@ function LogForm({ activity, onSubmit }) {
     e.preventDefault()
     const h = parseFloat(hours)
     if (!Number.isFinite(h) || h <= 0) return
-    onSubmit(activity, h, date, note)
+    onSubmit(activity, h, date, note, name)
     setHours('')
     setDate(todayStr())
     setNote('')
@@ -22,6 +23,16 @@ function LogForm({ activity, onSubmit }) {
 
   return (
     <form className="log-form" onSubmit={handleSubmit}>
+      <label className="field">
+        <span>Your name</span>
+        <input
+          type="text"
+          placeholder="e.g. Priya"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
       <div className="form-row">
         <label className="field">
           <span>Hours</span>

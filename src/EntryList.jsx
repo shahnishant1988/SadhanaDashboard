@@ -19,7 +19,7 @@ function EntryList({ entries, onDelete, activities }) {
   if (entries.length === 0) {
     return (
       <div className="entry-list empty">
-        <p>No entries yet. Log your first hour above.</p>
+        <p>No entries yet. Log your first hour above, or change the filter.</p>
       </div>
     )
   }
@@ -29,6 +29,7 @@ function EntryList({ entries, onDelete, activities }) {
       {entries.map((entry) => (
         <li key={entry.id} className={`entry-item ${getActivityStyle(entry.activity, activities)}`}>
           <div className="entry-main">
+            {entry.name && <span className="entry-name">{entry.name}</span>}
             <span className="entry-activity">
               {activities.find((a) => a.id === entry.activity)?.label ?? entry.activity}
             </span>

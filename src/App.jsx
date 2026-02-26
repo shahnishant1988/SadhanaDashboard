@@ -8,6 +8,7 @@ const STORAGE_KEY = 'sadhana-dashboard-entries'
 function fromDb(row) {
   return {
     id: row.id,
+    name: row.name || '',
     activity: row.activity,
     hours: Number(row.hours),
     date: row.date,
@@ -58,15 +59,16 @@ function App() {
     }
   }, [])
 
-  const addEntry = (activity, hours, date, note = '') => {
+  const addEntry = (activity, hours, date, note = '', name = '') => {
     const hoursNum = Math.max(0, Math.min(24, Number(hours) || 0))
     const dateStr = date || new Date().toISOString().slice(0, 10)
     const noteStr = (note || '').trim()
+    const nameStr = (name || '').trim()
 
     if (supabase) {
       supabase
         .from(TABLE)
-        .insert({ activity, hours: hoursNum, date: dateStr, note: noteStr })
+        .insert({ name: nameStr, activity, hours: hoursNum, date: dateStr, note: noteStr })
         .select('*')
         .single()
         .then(({ data, error: e }) => {
@@ -80,6 +82,7 @@ function App() {
     } else {
       const newEntry = {
         id: crypto.randomUUID(),
+        name: nameStr,
         activity,
         hours: hoursNum,
         date: dateStr,

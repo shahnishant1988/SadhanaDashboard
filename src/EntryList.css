@@ -45,6 +45,15 @@
   min-width: 0;
 }
 
+.entry-name {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  padding: 0.2rem 0.5rem;
+  background: var(--surface-hover);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
 .entry-activity {
   font-weight: 600;
   color: var(--text-strong);

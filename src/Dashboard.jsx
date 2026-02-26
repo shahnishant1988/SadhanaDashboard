@@ -11,15 +11,20 @@ const ACTIVITIES = [
 
 function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
   const [selectedActivity, setSelectedActivity] = useState('satsang')
+  const [filterPerson, setFilterPerson] = useState('')
+
+  const filteredEntries = filterPerson
+    ? entries.filter((e) => (e.name || '').trim() === filterPerson)
+    : entries
 
   const totals = ACTIVITIES.reduce((acc, { id }) => {
-    acc[id] = entries
+    acc[id] = filteredEntries
       .filter((e) => e.activity === id)
       .reduce((sum, e) => sum + e.hours, 0)
     return acc
   }, {})
 
-  const thisWeek = entries.filter((e) => {
+  const thisWeek = filteredEntries.filter((e) => {
     const d = new Date(e.date)
     const now = new Date()
     const start = new Date(now)
@@ -35,8 +40,27 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
     return acc
   }, {})
 
+  const uniqueNames = [...new Set(entries.map((e) => (e.name || '').trim()).filter(Boolean))].sort()
+
   return (
     <div className="dashboard">
+      {uniqueNames.length > 0 && (
+        <section className="filter-section">
+          <label className="filter-label">
+            <span>Show hours for</span>
+            <select
+              value={filterPerson}
+              onChange={(e) => setFilterPerson(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">Everyone</option>
+              {uniqueNames.map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </label>
+        </section>
+      )}
       <section className="summary-section">
         <Summary
           activities={ACTIVITIES}
@@ -68,7 +92,7 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
       <section className="entries-section">
         <h2>Recent entries</h2>
         <EntryList
-          entries={entries}
+          entries={filteredEntries}
           onDelete={onDeleteEntry}
           activities={ACTIVITIES}
         />
