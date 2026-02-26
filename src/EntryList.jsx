@@ -28,15 +28,15 @@ function EntryList({ entries, onDelete, activities }) {
     <ul className="entry-list">
       {entries.map((entry) => (
         <li key={entry.id} className={`entry-item ${getActivityStyle(entry.activity, activities)}`}>
-          <div className="entry-main">
+          <div className="entry-row">
             {entry.name && <span className="entry-name">{entry.name}</span>}
             <span className="entry-activity">
               {activities.find((a) => a.id === entry.activity)?.label ?? entry.activity}
             </span>
+            {entry.note && <span className="entry-note">{entry.note}</span>}
             <span className="entry-hours">{entry.hours} hr</span>
             <span className="entry-date">{formatDate(entry.date)}</span>
           </div>
-          {entry.note && <div className="entry-note">{entry.note}</div>}
           <button
             type="button"
             className="entry-delete"
