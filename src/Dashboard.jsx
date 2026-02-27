@@ -93,7 +93,7 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
       <section className="entries-section">
         <h2>Recent entries</h2>
         <EntryList
-          entries={filteredEntries}
+          entries={filteredEntries.slice(0, 10)}
           onDelete={onDeleteEntry}
           activities={ACTIVITIES}
         />
