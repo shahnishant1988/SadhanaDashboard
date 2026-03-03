@@ -104,3 +104,31 @@
   white-space: nowrap;
 }
 
+@media (max-width: 480px) {
+  .entry-row {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .entry-left {
+    flex-wrap: wrap;
+  }
+
+  .entry-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .entry-name {
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+
+  .entry-note {
+    display: none;
+  }
+}
+

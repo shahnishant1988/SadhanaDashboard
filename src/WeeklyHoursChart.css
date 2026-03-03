@@ -35,3 +35,10 @@
 .chart-wrap .recharts-legend-item-text {
   color: var(--text) !important;
 }
+
+@media (max-width: 480px) {
+  .chart-wrap {
+    padding: 0.5rem;
+    min-height: 220px;
+  }
+}
