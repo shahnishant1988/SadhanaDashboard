@@ -2,8 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import './LogForm.css'
 import { todayPacific } from './dateUtils'
 
+const NAME_KEY = 'sadhana-dashboard-username'
+
 function LogForm({ onSubmit, existingNames = [] }) {
-  const [name, setName] = useState('')
+  const [name, setName] = useState(() => localStorage.getItem(NAME_KEY) || '')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const [satsangHours, setSatsangHours] = useState('')
@@ -48,6 +50,8 @@ function LogForm({ onSubmit, existingNames = [] }) {
     const nameStr = name.trim()
     const dateStr = date || todayPacific()
     const noteStr = note.trim()
+
+    if (nameStr) localStorage.setItem(NAME_KEY, nameStr)
 
     if (satsangValid) onSubmit('satsang', Math.min(24, satsang), dateStr, noteStr, nameStr)
     if (sadhanaValid) onSubmit('sadhana', Math.min(24, sadhana), dateStr, noteStr, nameStr)
