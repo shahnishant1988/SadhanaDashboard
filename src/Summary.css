@@ -30,10 +30,18 @@
   letter-spacing: 0.04em;
 }
 
+.summary-card-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .summary-values {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .summary-total,
@@ -62,4 +70,45 @@
 .summary .unit {
   font-size: 0.8125rem;
   color: var(--muted);
+}
+
+.summary-top {
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 0;
+}
+
+.summary-top-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}
+
+.summary-top-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summary-top-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.2rem 0;
+}
+
+.summary-top-name {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.summary-top-hours {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }

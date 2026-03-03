@@ -4,6 +4,15 @@
   gap: 2rem;
 }
 
+.members-section {
+  margin-bottom: -0.5rem;
+}
+
+.members-count {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
 .filter-section {
   margin-bottom: -0.5rem;
 }

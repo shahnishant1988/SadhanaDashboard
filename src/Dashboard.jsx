@@ -2,6 +2,7 @@ import { useState } from 'react'
 import LogForm from './LogForm'
 import Summary from './Summary'
 import EntryList from './EntryList'
+import WeeklyHoursChart from './WeeklyHoursChart'
 import './Dashboard.css'
 
 const ACTIVITIES = [
@@ -10,7 +11,6 @@ const ACTIVITIES = [
 ]
 
 function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
-  const [selectedActivity, setSelectedActivity] = useState('satsang')
   const [filterPerson, setFilterPerson] = useState('')
 
   const filteredEntries = filterPerson
@@ -41,9 +41,35 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
   }, {})
 
   const uniqueNames = [...new Set(entries.map((e) => (e.name || '').trim()).filter(Boolean))].sort()
+  const memberCount = uniqueNames.length
+
+  function getTopPerformers(activityId) {
+    const byName = {}
+    entries
+      .filter((e) => e.activity === activityId)
+      .forEach((e) => {
+        const n = (e.name || '').trim()
+        if (!n) return
+        byName[n] = (byName[n] || 0) + e.hours
+      })
+    return Object.entries(byName)
+      .map(([name, hours]) => ({ name, hours }))
+      .sort((a, b) => b.hours - a.hours)
+      .slice(0, 3)
+  }
+
+  const topPerformers = {
+    satsang: getTopPerformers('satsang'),
+    sadhana: getTopPerformers('sadhana'),
+  }
 
   return (
     <div className="dashboard">
+      <section className="members-section">
+        <span className="members-count">
+          {memberCount} {memberCount === 1 ? 'member' : 'members'} have logged hours
+        </span>
+      </section>
       {uniqueNames.length > 0 && (
         <section className="filter-section">
           <label className="filter-label">
@@ -66,25 +92,17 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
           activities={ACTIVITIES}
           totals={totals}
           weekTotals={weekTotals}
+          topPerformers={topPerformers}
         />
+      </section>
+
+      <section className="chart-section-wrapper">
+        <WeeklyHoursChart entries={filteredEntries} />
       </section>
 
       <section className="log-section">
         <h2>Log hours</h2>
-        <div className="activity-tabs">
-          {ACTIVITIES.map(({ id, label, color }) => (
-            <button
-              key={id}
-              type="button"
-              className={`tab ${color} ${selectedActivity === id ? 'active' : ''}`}
-              onClick={() => setSelectedActivity(id)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
         <LogForm
-          activity={selectedActivity}
           onSubmit={onAddEntry}
           existingNames={uniqueNames}
         />
@@ -94,7 +112,6 @@ function Dashboard({ entries, onAddEntry, onDeleteEntry }) {
         <h2>Recent entries</h2>
         <EntryList
           entries={filteredEntries.slice(0, 10)}
-          onDelete={onDeleteEntry}
           activities={ACTIVITIES}
         />
       </section>

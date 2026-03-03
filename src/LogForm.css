@@ -72,8 +72,27 @@
   background: var(--surface-hover);
 }
 
+.form-row-hours {
+  margin-bottom: 0.5rem;
+}
+
+.field-satsang input:focus,
+.field-sadhana input:focus {
+  outline-color: var(--accent-satsang);
+}
+
+.field-sadhana input:focus {
+  outline-color: var(--accent-sadhana);
+}
+
 .field-note {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.form-hint {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
 }
 
 .submit-btn {
@@ -91,4 +110,13 @@
 
 .submit-btn:active {
   filter: brightness(0.95);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn:disabled:hover {
+  filter: none;
 }

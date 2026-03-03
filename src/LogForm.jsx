@@ -1,16 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
 import './LogForm.css'
+import { todayPacific } from './dateUtils'
 
-function todayStr() {
-  return new Date().toISOString().slice(0, 10)
-}
-
-function LogForm({ activity, onSubmit, existingNames = [] }) {
+function LogForm({ onSubmit, existingNames = [] }) {
   const [name, setName] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
-  const [hours, setHours] = useState('')
-  const [date, setDate] = useState(todayStr())
+  const [satsangHours, setSatsangHours] = useState('')
+  const [sadhanaHours, setSadhanaHours] = useState('')
+  const [date, setDate] = useState(todayPacific())
   const [note, setNote] = useState('')
   const nameInputRef = useRef(null)
   const listRef = useRef(null)
@@ -19,6 +17,12 @@ function LogForm({ activity, onSubmit, existingNames = [] }) {
   const suggestions = existingNames.filter((n) =>
     n.toLowerCase().includes(nameLower)
   )
+
+  const satsangVal = parseFloat(satsangHours)
+  const sadhanaVal = parseFloat(sadhanaHours)
+  const hasValidHours =
+    (Number.isFinite(satsangVal) && satsangVal > 0) ||
+    (Number.isFinite(sadhanaVal) && sadhanaVal > 0)
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -35,12 +39,22 @@ function LogForm({ activity, onSubmit, existingNames = [] }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const h = parseFloat(hours)
-    if (!Number.isFinite(h) || h <= 0) return
-    onSubmit(activity, h, date, note, name.trim())
-    setName('')
-    setHours('')
-    setDate(todayStr())
+    const satsang = parseFloat(satsangHours)
+    const sadhana = parseFloat(sadhanaHours)
+    const satsangValid = Number.isFinite(satsang) && satsang > 0
+    const sadhanaValid = Number.isFinite(sadhana) && sadhana > 0
+    if (!satsangValid && !sadhanaValid) return
+
+    const nameStr = name.trim()
+    const dateStr = date || todayPacific()
+    const noteStr = note.trim()
+
+    if (satsangValid) onSubmit('satsang', Math.min(24, satsang), dateStr, noteStr, nameStr)
+    if (sadhanaValid) onSubmit('sadhana', Math.min(24, sadhana), dateStr, noteStr, nameStr)
+
+    setSatsangHours('')
+    setSadhanaHours('')
+    setDate(todayPacific())
     setNote('')
     setShowSuggestions(false)
   }
@@ -117,20 +131,33 @@ function LogForm({ activity, onSubmit, existingNames = [] }) {
           </ul>
         )}
       </label>
-      <div className="form-row">
-        <label className="field">
-          <span>Hours</span>
+      <div className="form-row form-row-hours">
+        <label className="field field-satsang">
+          <span>Satsang hours</span>
           <input
             type="number"
             step="0.25"
-            min="0.25"
+            min="0"
             max="24"
-            placeholder="e.g. 1.5"
-            value={hours}
-            onChange={(e) => setHours(e.target.value)}
-            required
+            placeholder="0"
+            value={satsangHours}
+            onChange={(e) => setSatsangHours(e.target.value)}
           />
         </label>
+        <label className="field field-sadhana">
+          <span>Sadhana hours</span>
+          <input
+            type="number"
+            step="0.25"
+            min="0"
+            max="24"
+            placeholder="0"
+            value={sadhanaHours}
+            onChange={(e) => setSadhanaHours(e.target.value)}
+          />
+        </label>
+      </div>
+      <div className="form-row">
         <label className="field">
           <span>Date</span>
           <input
@@ -150,7 +177,8 @@ function LogForm({ activity, onSubmit, existingNames = [] }) {
           onChange={(e) => setNote(e.target.value)}
         />
       </label>
-      <button type="submit" className="submit-btn">
+      <p className="form-hint">Enter at least one of Satsang or Sadhana hours.</p>
+      <button type="submit" className="submit-btn" disabled={!hasValidHours}>
         Add entry
       </button>
     </form>
