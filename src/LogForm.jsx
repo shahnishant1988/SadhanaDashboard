@@ -140,7 +140,7 @@ function LogForm({ onSubmit, existingNames = [] }) {
           <span>Satsang hours</span>
           <input
             type="number"
-            step="0.25"
+            step="any"
             min="0"
             max="24"
             placeholder="0"
@@ -152,7 +152,7 @@ function LogForm({ onSubmit, existingNames = [] }) {
           <span>Sadhana hours</span>
           <input
             type="number"
-            step="0.25"
+            step="any"
             min="0"
             max="24"
             placeholder="0"
